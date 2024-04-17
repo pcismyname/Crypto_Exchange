@@ -12,7 +12,7 @@
   <p class="text-4xl mb-10 font-bold text-base-100 text-center">
     Top Pick
   </p>
-  <div class="grid grid-cols-4 justify-center   ">
+  <div class="flex flex-wrap justify-center items-center gap-4">
     <Card image={bitcoin_img} name="Bitcoin" price="$40,000" targetUrl="main-coin"/>
     <Card image={etheruem_img} name="Etheruem" price="$10,000" />
     <Card image={usdt_img} name="USDT" price="$1" />
