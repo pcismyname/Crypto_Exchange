@@ -4,6 +4,9 @@ export default {
   theme: {
     extend: {},
   },
+  fontSize: {
+    'responsive': 'clamp(1.2rem, 4vw + 1rem, 6rem)',
+  },
   plugins: [require("daisyui")],
   daisyui: {
     themes: [

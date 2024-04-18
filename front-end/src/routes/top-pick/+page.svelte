@@ -3,21 +3,36 @@
   import etheruem_img from "$lib/images/etheruem.png";
   import usdt_img from "$lib/images/usdt.png";
   import xrp_img from "$lib/images/xrp.png";
-
+  
   import Card from "../Card.svelte";
+
+  //this shoud get data from server
+  const coins = [
+    { coinId: "btc", detail :{image: bitcoin_img, name: "Bitcoin", price: "$40,000" }},
+    { coinId: "eth", detail :{image: etheruem_img, name: "etheruem", price: "$40,000" }},
+    { coinId: "usdt", detail :{image: usdt_img, name: "Bitcoin", price: "$40,000" }},
+    { coinId: "xrp", detail :{image: xrp_img, name: "Bitcoin", price: "$40,000" }},
+  ];
 </script>
 
-<body class="flex flex-col">
+<body class="flex flex-col h-dvh ">
 <div class="bg-primary pt-5  h-screen">
   <p class="text-4xl mb-10 font-bold text-base-100 text-center">
     Top Pick
   </p>
   <div class="flex flex-wrap justify-center items-center gap-4">
-    <Card image={bitcoin_img} name="Bitcoin" price="$40,000" targetUrl="main-coin"/>
-    <Card image={etheruem_img} name="Etheruem" price="$10,000" />
-    <Card image={usdt_img} name="USDT" price="$1" />
-    <Card image={xrp_img} name="XRP" price="$10" />
+    {#each coins as coin}
+    <Card
+      coinId={coin.coinId}
+      image={coin.detail.image}
+      name={coin.detail.name}
+      price={coin.detail.price}
+    />
+  {/each}
   </div>
 </div>
 </body>
-<style lang="postcss"></style>
+<style lang="postcss">
+  body {
+  }
+</style>
