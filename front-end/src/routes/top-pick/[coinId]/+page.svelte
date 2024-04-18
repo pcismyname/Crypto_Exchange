@@ -2,7 +2,7 @@
 <script>
   import { onMount } from "svelte";
   import Detail from '../Detail.svelte'
-
+  import Buy from '../Buy.svelte'
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -25,8 +25,8 @@
       allow_symbol_change: true,
       calendar: false,
       support_host: "https://www.tradingview.com",
-      width: "400", // Set width
-      height: "300", // Set height
+      width: "950", // Set width
+      height: "500", // Set height
     });
 
     document.getElementById("tradingview-widget").appendChild(script);
@@ -35,9 +35,12 @@
 
 <body class="flex flex-col">
   <div class="bg-primary h-screen">
-    <h1>{data.coinDetails.name}</h1>
+    <!-- <h1>{data.coinDetails.name}</h1>
     <p>Price: {data.coinDetails.price}</p>
-    <p>{data.coinDetails.description}</p>
+    <p>{data.coinDetails.description}</p> -->
+
+    <!-- <Detail/>
+    <Buy/>
 
     <div class="tradingview-widget-container">
       <div
@@ -45,5 +48,26 @@
         class="tradingview-widget-container__widget"
       ></div>
     </div>
+  </div> -->
+
+  <div class="container mx-auto px-4 py-8">
+    <!-- First row for Detail component -->
+    <div class="mb-8">
+      <Detail {...data} />
+    </div>
+  
+    <!-- Second row for TradingView widget and Buy component -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- TradingView widget container -->
+      <div class="md:col-span-2">
+        <div id="tradingview-widget" class="tradingview-widget-container__widget"></div>
+      </div>
+  
+      <!-- Buy component container -->
+      <div class="md:col-span-1">
+        <Buy coinName={data.name} coinSymbol="BTC" />
+      </div>
+    </div>
   </div>
+  
 </body>
