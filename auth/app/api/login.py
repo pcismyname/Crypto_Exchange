@@ -10,13 +10,14 @@ from datetime import timedelta
 from app.models.user_model import User
 
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 120
 
 router = APIRouter()
 
 @router.post("/")
 def login_for_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
+    form_data: OAuth2PasswordRequestForm = Depends(), 
+    db: Session = Depends(get_db)
 ):
     user = get_user_by_email_in_db(db, form_data.username)
     if not user or not verify_password(form_data.password, user.hashed_password):
@@ -31,8 +32,8 @@ def login_for_access_token(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@router.get("/send-token")
-def send_token(token: str):
+@router.get("/get-token")
+def get_token(token: str):
     # Here you can perform any additional logic, such as sending the token via email or any other method
     return {"token": token}
 
