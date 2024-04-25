@@ -18,7 +18,7 @@ services:
       context: ./user_service
       dockerfile: Dockerfile
     volumes:
-      - ./user_service/app:/code
+      - ./user_service:/code
     depends_on:
       - postgres
     networks:
@@ -26,23 +26,10 @@ services:
     ports:
       - "8000:8000"
 
-  auth:
-    build:
-      context: ./auth
-      dockerfile: Dockerfile
-    volumes:
-      - ./auth/app:/code
-    depends_on:
-      - postgres
-    networks:
-      - app_network
-    ports:
-      - "8077:8000"
-
   # product_service:
   #   build:
-  #     context: .
-  #     dockerfile: /product_service/Dockerfile
+  #     context: ./product_service
+  #     dockerfile: Dockerfile
   #   volumes:
   #     - ./product_service:/code
   #   depends_on:
