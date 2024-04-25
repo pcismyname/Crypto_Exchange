@@ -1,5 +1,3 @@
-# common/dependencies.py
-
 # dependencies.py
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
@@ -12,6 +10,15 @@ from app.core.security import SECRET_KEY, ALGORITHM
 from app.crud.crud import get_user_in_db
 from app.schemas.user_schema import TokenData
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# Replace with your actual database URL
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@postgres/postgres"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Dependency to get DB session
 def get_db() -> Session:
@@ -54,10 +61,4 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
     return user
-
-def get_token_header(x_token: str = Header(...)):
-    """Dependency that validates the presence of a token in the header."""
-    if x_token != "fake-super-secret-token":
-        raise HTTPException(status_code=400, detail="X-Token header invalid")
-    return x_token
 

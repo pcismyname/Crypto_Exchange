@@ -8,6 +8,7 @@ WORKDIR /code
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /code
+COPY ./common /common
 COPY ./app /code
 
 # Install any needed packages specified in requirements.txt
