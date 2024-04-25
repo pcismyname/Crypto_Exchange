@@ -39,18 +39,18 @@ services:
     ports:
       - "8000:8000"
 
-  # product_service:
-  #   build:
-  #     context: ./product_service
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./product_service:/code
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - app_network
-  #   ports:
-  #     - "8001:8000"
+  product_service:
+    build:
+      context: ./product_service
+      dockerfile: Dockerfile
+    volumes:
+      - ./product_service:/code
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+    ports:
+      - "8002:8000"
 
   # front_end:
   #   build:

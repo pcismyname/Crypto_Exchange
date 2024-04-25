@@ -7,7 +7,6 @@ from app.dependencies.dependencies import get_db
 from datetime import timedelta
 from app.models.user_model import User
 from requests import post
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 router = APIRouter()
 

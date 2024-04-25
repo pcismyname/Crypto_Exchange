@@ -16,7 +16,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@postgres/postgres"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
+    SQLALCHEMY_DATABASE_URL, echo = True
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
