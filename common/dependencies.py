@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # common/dependencies.py
 
 # dependencies.py
@@ -61,3 +62,5 @@ def get_token_header(x_token: str = Header(...)):
         raise HTTPException(status_code=400, detail="X-Token header invalid")
     return x_token
 
+=======
+>>>>>>> parent of dba30bd (generate token)

@@ -6,9 +6,6 @@ from sqlalchemy.orm import Session
 from app.core.security import verify_password, create_access_token
 from app.crud.crud import get_user_by_email_in_db
 from app.dependencies.dependencies import get_db
-from datetime import timedelta  # Add this import
-
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 router = APIRouter()
 
