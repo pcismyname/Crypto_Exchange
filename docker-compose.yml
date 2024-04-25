@@ -13,6 +13,19 @@ services:
     networks:
       - app_network
 
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    volumes:
+      - ./auth:/code
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+    ports:
+      - "8077:8000"
+
   user_service:
     build:
       context: ./user_service
