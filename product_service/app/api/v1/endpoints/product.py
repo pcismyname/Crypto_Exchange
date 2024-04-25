@@ -3,15 +3,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from ...crud.product_crud import (
+from app.crud.product_crud import (
     get_product,
     get_products,
     create_product,
     update_product,
     delete_product,
 )
-from ...dependencies import get_db
-from ...schemas.product_schema import ProductCreate, ProductOut
+from app.dependencies import get_db
+from app.schemas.product_schema import ProductCreate, ProductOut
 
 router = APIRouter(prefix="/products", tags=["products"])
 

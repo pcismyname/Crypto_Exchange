@@ -13,6 +13,11 @@ async def lifespan(app: FastAPI):
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
     Base.metadata.create_all(bind=engine)  # Create database tables
     print("Database tables created!")
+    try:
+        yield
+    finally:
+        engine.dispose()  # Close the database connection
+        print("Database connection closed!")
 
 @app.get("/")
 def read_root():
