@@ -9,16 +9,15 @@ from contextlib import asynccontextmanager
 async def lifespan(app: FastAPI):
     print("init lifespan")
     Base.metadata.create_all(bind=engine)  # Create database tables
-    yield
     print("Database tables created!")
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 
-@app.on_event("startup")
-async def on_startup():
-    Base.metadata.create_all(bind=engine)  # Create database tables
-    print("Database tables created!")
+# @app.on_event("startup")
+# async def on_startup():
+#     Base.metadata.create_all(bind=engine)  # Create database tables
+#     print("Database tables created!")
 
 
 
@@ -29,8 +28,7 @@ app.include_router(api_router, prefix="/api/v1")
 def read_root():
     return {"Hello": "Welcome to the Product Service API"}
 
-if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)  # Create database tables
-    print("Database tables created!")
+Base.metadata.create_all(bind=engine)  # Create database tables
+print("Database tables created!")
 
 
