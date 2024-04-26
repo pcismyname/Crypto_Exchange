@@ -1,6 +1,7 @@
   /** @type {import('./$types').PageLoad} */
-  export async function load({ params }) {
+  export async function load({ parent, params }) {
     const { coinId } = params;
+    const { a } = await parent();
 
     // Here we simulate fetching data from an API with hardcoded data
     const dummyData = {
@@ -38,6 +39,6 @@
       // ... default details
     };
 
-    return { 
+    return { coin : a,
       coinDetails: data };
   }
