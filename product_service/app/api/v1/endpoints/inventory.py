@@ -29,6 +29,18 @@ def update_existing_inventory(crypto_id: int, inventory_data: InventoryUpdate, d
         raise HTTPException(status_code=404, detail="Inventory not found")
     return updated_inventory
 
+@router.post("/update_amount/{crypto_id}")
+def update_amount(crypto_id: int, amount: float):
+    # Here, you would check and update inventory
+    inventory = get_inventory(crypto_id)  # Assume this retrieves inventory details
+    if inventory['total_amount'] >= amount:
+        new_amount = inventory['total_amount'] - amount
+        update_inventory(crypto_id, new_amount)  # Assume this updates the DB
+        return {"message": "Inventory updated"}
+    else:
+        raise HTTPException(status_code=400, detail="Insufficient inventory")
+
+
 # Delete Inventory
 @router.delete("/inventory/{crypto_id}", status_code=204)
 def delete_inventory(crypto_id: int, db: Session = Depends(get_db)):

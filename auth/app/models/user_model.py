@@ -19,11 +19,14 @@ class User(Base):
     wallets = relationship("Wallet", back_populates="owner")
 
 class Wallet(Base):
-    __tablename__ = "wallets"
-
+    __tablename__ = 'wallets'
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    balance = Column(Float)
+    user_id = Column(Integer, ForeignKey('users.user_id'))
+    crypto_id = Column(Integer, ForeignKey('cryptocurrencies.crypto_id'))
+    amount = Column(Float, default=0)  # Stores the amount of cryptocurrency
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
-    owner = relationship("User", back_populates="wallets")
+    # Relationship to user and cryptocurrency
+    user = relationship("User", back_populates="wallets")
+    cryptocurrency = relationship("Cryptocurrency", back_populates="wallets")
+
