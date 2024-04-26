@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.crud.crud_crypto import (create_cryptocurrency, get_cryptocurrency,
-                                 update_cryptocurrency, delete_cryptocurrency,
+                                 update_cryptocurrency_db, delete_cryptocurrency_db,
                                   get_all_cryptocurrencies)
 from app.schemas.schemas import (CryptocurrencyCreate, CryptocurrencyInDBBase,
                          CryptocurrencyUpdate)
@@ -31,14 +31,14 @@ def read_cryptocurrency(crypto_id: int, db: Session = Depends(get_db)):
 
 @router.put("/cryptocurrencies/{crypto_id}", response_model=CryptocurrencyInDBBase)
 def update_cryptocurrency(crypto_id: int, cryptocurrency: CryptocurrencyUpdate, db: Session = Depends(get_db)):
-    updated_crypto = update_cryptocurrency(db=db, crypto_id=crypto_id, cryptocurrency_data=cryptocurrency)
+    updated_crypto = update_cryptocurrency_db(db=db, crypto_id=crypto_id, cryptocurrency_data=cryptocurrency)
     if not updated_crypto:
         raise HTTPException(status_code=404, detail="Cryptocurrency not found")
     return updated_crypto
 
 @router.delete("/cryptocurrencies/{crypto_id}", status_code=204)
 def delete_a_cryptocurrency(crypto_id: int, db: Session = Depends(get_db)):
-    if not delete_cryptocurrency(db=db, crypto_id=crypto_id):
+    if not delete_cryptocurrency_db(db=db, crypto_id=crypto_id):
         raise HTTPException(status_code=404, detail="Cryptocurrency not found")
 
 # Inventory Endpoints (similar structure)

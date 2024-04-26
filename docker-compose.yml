@@ -38,6 +38,19 @@ services:
       - app_network
     ports:
       - "8000:8000"
+  
+  user_action_service:
+    build:
+      context: ./user_action_service
+      dockerfile: Dockerfile
+    volumes:
+      - ./user_action_service:/code
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+    ports:
+      - "8001:8000"
 
   product_service:
     build:
@@ -45,6 +58,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./product_service:/code
+      - ./common:/code/common
     depends_on:
       - postgres
     networks:

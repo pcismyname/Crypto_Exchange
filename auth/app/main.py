@@ -4,6 +4,7 @@ from .db import SQLALCHEMY_DATABASE_URL
 from sqlalchemy import create_engine
 from contextlib import asynccontextmanager
 from app.models.user_model import Base  # Import Base from your model file
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
@@ -19,6 +20,14 @@ async def lifespan(app: FastAPI):
     finally:
         engine.dispose()  # Close the database connection
         print("Database connection closed!")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.schemas.schemas import InventoryCreate, InventoryInDBBase, InventoryUpdate
-from app.crud.crud_inventory import create_inventory, get_inventory, update_inventory, delete_inventory
+from app.crud.crud_inventory import create_inventory, get_inventory, update_inventory, delete_inventory, decrease_inventory_total_amount
 from app.dependencies.dependencies import get_db
 
 router = APIRouter()
@@ -29,16 +29,14 @@ def update_existing_inventory(crypto_id: int, inventory_data: InventoryUpdate, d
         raise HTTPException(status_code=404, detail="Inventory not found")
     return updated_inventory
 
-@router.post("/update_amount/{crypto_id}")
-def update_amount(crypto_id: int, amount: float):
-    # Here, you would check and update inventory
-    inventory = get_inventory(crypto_id)  # Assume this retrieves inventory details
-    if inventory['total_amount'] >= amount:
-        new_amount = inventory['total_amount'] - amount
-        update_inventory(crypto_id, new_amount)  # Assume this updates the DB
-        return {"message": "Inventory updated"}
-    else:
-        raise HTTPException(status_code=400, detail="Insufficient inventory")
+@router.post("/inventory/{crypto_id}/decrease", response_model=InventoryInDBBase)
+def decrease_inventory(crypto_id: int, amount: float, db: Session = Depends(get_db)):
+    try:
+        updated_inventory = decrease_inventory_total_amount(db=db, crypto_id=crypto_id, amount=amount)
+        return updated_inventory
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
 
 
 # Delete Inventory

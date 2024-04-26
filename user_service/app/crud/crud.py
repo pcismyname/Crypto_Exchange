@@ -21,7 +21,7 @@ def get_users_in_db(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user_in_db(db: Session, user: UserCreate):
     hashed_password = hash_password(user.password)  # Hashing the password
-    db_user = user_model.User(email=user.email, hashed_password=hashed_password)
+    db_user = user_model.User(email=user.email, password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

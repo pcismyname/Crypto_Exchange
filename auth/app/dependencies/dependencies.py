@@ -10,7 +10,7 @@ from app.core.security import SECRET_KEY, ALGORITHM
 from app.crud.crud import get_user_in_db
 from app.schemas.user_schema import TokenData
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
 
 # Replace with your actual database URL
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@postgres/postgres"

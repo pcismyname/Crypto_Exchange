@@ -21,5 +21,9 @@ def read_root():
 
 app.include_router(api_router, prefix="/api/v1")
 
+engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
+Base.metadata.create_all(bind=engine)  # Create database tables
+
+
 # if __name__ == "__main__":
 #     uvicorn.run(app, host="0.0.0.0", port=8000)

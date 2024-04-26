@@ -13,7 +13,7 @@ class UserUpdate(UserBase):
     password: Optional[str] = None
 
 class UserOut(UserBase):
-    id: int
+    user_id: int
     created_at: datetime
 
     class Config:

@@ -15,12 +15,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-# @app.on_event("startup")
-# async def on_startup():
-#     Base.metadata.create_all(bind=engine)  # Create database tables
-#     print("Database tables created!")
-
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,12 +24,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# @app.on_event("startup")
+# async def on_startup():
+#     Base.metadata.create_all(bind=engine)  # Create database tables
+#     print("Database tables created!")
+
+
+
 # Include routers
 app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Welcome to the Product Service API"}
+    return {"Hello": "Welcome to the user action service API"}
 
 Base.metadata.create_all(bind=engine)  # Create database tables
 print("Database tables created!")

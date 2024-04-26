@@ -27,6 +27,18 @@ def update_inventory(db: Session, crypto_id: int, inventory_data: InventoryUpdat
         db.refresh(db_inventory)
     return db_inventory
 
+def decrease_inventory_total_amount(db: Session, crypto_id: int, amount: float) -> Inventory:
+    db_inventory = db.query(Inventory).filter(Inventory.crypto_id == crypto_id).first()
+    if db_inventory:
+        if db_inventory.total_amount < amount:
+            raise ValueError("Not enough inventory to decrease")
+        db_inventory.total_amount -= amount
+        db.commit()
+        db.refresh(db_inventory)
+        return db_inventory
+    raise ValueError("Inventory not found")
+
+
 def delete_inventory(db: Session, crypto_id: int):
     db_inventory = db.query(Inventory).filter(Inventory.crypto_id == crypto_id).first()
     if db_inventory:
