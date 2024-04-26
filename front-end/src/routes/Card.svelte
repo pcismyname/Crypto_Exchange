@@ -1,6 +1,5 @@
 <script>
   import { goto } from "$app/navigation";
-  import { page } from '../top-pick'
 
   export let image = "";
   export let name = "";

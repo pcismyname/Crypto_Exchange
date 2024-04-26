@@ -3,12 +3,10 @@
   import { onMount } from "svelte";
   import Detail from '../Detail.svelte'
   import Buy from '../Buy.svelte'
-  import { coins } from '../+page'
 
   /** @type {import('./$types').PageData} */
   export let data;
   console.log(data);
-  console.log(coins)
   onMount(() => {
     const script = document.createElement("script");
     script.src =

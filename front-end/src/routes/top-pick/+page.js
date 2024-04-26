@@ -5,7 +5,8 @@ export async function load({ fetch }) {
     const response = await fetch(url);
     if (response.ok) {
         const coins = await response.json();
-        // console.log(coins)
+        console.log('tessssssssssst')
+        console.log(coins)
         return { coins } ; // Pass the coins data to the page as props;
     }
     return {
