@@ -39,7 +39,7 @@ app.include_router(api_router, prefix="/api/v1")
 def read_root():
     return {"Hello": "Welcome to the user action service API"}
 
-Base.metadata.create_all(bind=engine)  # Create database tables
+# Base.metadata.create_all(bind=engine)  # Create database tables
 print("Database tables created!")
 
 

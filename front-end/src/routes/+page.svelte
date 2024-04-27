@@ -19,7 +19,7 @@
         No extra fee<br/>
         Buy anywhere and anytime.
       </p>
-      <button class="btn btn-accent text-base-100 w-80"> Buy Now </button>
+      <a class="btn btn-accent text-base-100 w-80" href="/top-pick">Buy  Now</a>
     </div>
 
     <div>
@@ -28,4 +28,3 @@
   </div>
 </body>
 
-<style lang="postcss"></style>

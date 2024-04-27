@@ -8,7 +8,8 @@
 
     /** @type {import('./$types').PageData} */
     export let data;
-    let coins = data.coins;
+    let coins = data['props'];
+    // console.log('data from api')
     // console.log(coins);
 
     const images = {
@@ -18,15 +19,17 @@
         xrp: xrp_img,
     };
 
+
     if (coins && coins.length > 0) {
         coins = coins.map((coin) => ({
             ...coin,
-            image: images[coin.symbol], // Make sure the symbol is in lowercase to match the keys
-            price: "$40,000", // Static price for example purposes
+            image: images[coin.symbol],
         }));
     } else {
         console.log("Coins is undefined or empty.");
     }
+    // console.log('after process')
+    // console.log(coins)
 </script>
 
 <!-- <body class="flex flex-col h-dvh"> -->
@@ -37,10 +40,10 @@
     >
         {#each coins as coin}
             <Card
-                coinId={coin.coinId}
                 image={coin.image}
                 name={coin.name}
-                price={coin.price}
+                coinId={coin.coinId}
+                cryptoId={coin.crypto_id}
             />
         {/each}
     </div>

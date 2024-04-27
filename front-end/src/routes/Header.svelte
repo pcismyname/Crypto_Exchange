@@ -13,7 +13,7 @@
 		<a href="/learn" class="text-accent hover:text-neutral">Learn</a>
 		<a href="/market-cap" class="text-accent hover:text-neutral">Market Cap</a>
 		<a href="/api" class="text-accent hover:text-neutral">API</a>
-		<a href="/help" class="text-accent hover:text-neutral">Help</a>
+		<a href="/cart" class="text-accent hover:text-neutral">Cart</a>
 		<a href="/login" class="btn btn-accent text-base-100">Login</a>
 		<a href="/signup" class="btn btn-neutral text-base-100">Sign Up</a>
 	  </div>
