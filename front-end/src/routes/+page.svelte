@@ -1,67 +1,30 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import "../app.css";
+  import main_img from "$lib/images/main_img.png";
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+  <title>BITX</title>
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<body class="flex flex-col">
+  <!-- Main content container -->
+  <div class="bg-primary flex-1 flex items-center justify-center space-x-48">
+    <div class="space-y-10 	mx-0 flex flex-col items-center">
+      <h1 class="text-6xl font-bold text-secondary">
+        Buy Crypto<br />
+        Just one Click
+      </h1>
+      <p class="text-xl text-base-100 text-center">
+        Join the most trusted crypto platform in the world<br />
+        No extra fee<br/>
+        Buy anywhere and anytime.
+      </p>
+      <a class="btn btn-accent text-base-100 w-80" href="/top-pick">Buy  Now</a>
+    </div>
 
-		to your new<br />SvelteKit app
-	</h1>
+    <div>
+      <img src={main_img} alt="Buy Crypto" class="w-full max-w-md mx-auto" />
+    </div>
+  </div>
+</body>
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-	<h1 class="text-xl font-bold underline">
-		Hello world!
-	</h1>
-
-	<Counter />
-</section>
-
-<style lang="postcss">
-
-	:global(html) {
-    background-color:f3f4f6;
-  }
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
