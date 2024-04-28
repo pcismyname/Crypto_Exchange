@@ -14,14 +14,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-
-# @app.on_event("startup")
-# async def on_startup():
-#     Base.metadata.create_all(bind=engine)  # Create database tables
-#     print("Database tables created!")
-
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

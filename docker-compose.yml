@@ -1,86 +1,97 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  postgres:
-    image: postgres:latest
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - app_network
+    postgres:
+        image: postgres:latest
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - app_network
 
-  auth:
-    build:
-      context: ./auth
-      dockerfile: Dockerfile
-    volumes:
-      - ./auth:/code
-    depends_on:
-      - postgres
-    networks:
-      - app_network
-    ports:
-      - "8077:8000"
+    auth:
+        build:
+            context: ./auth
+            dockerfile: Dockerfile
+        volumes:
+            - ./auth:/code
+        depends_on:
+            - postgres
+        networks:
+            - app_network
+        ports:
+            - "8077:8000"
 
-  user_service:
-    build:
-      context: ./user_service
-      dockerfile: Dockerfile
-    volumes:
-      - ./user_service:/code
-    depends_on:
-      - postgres
-    networks:
-      - app_network
-    ports:
-      - "8000:8000"
-  
-  user_action_service:
-    build:
-      context: ./user_action_service
-      dockerfile: Dockerfile
-    volumes:
-      - ./user_action_service:/code
-    depends_on:
-      - postgres
-    networks:
-      - app_network
-    ports:
-      - "8001:8000"
+    user_service:
+        build:
+            context: ./user_service
+            dockerfile: Dockerfile
+        volumes:
+            - ./user_service:/code
+        depends_on:
+            - postgres
+        networks:
+            - app_network
+        ports:
+            - "8000:8000"
 
-  product_service:
-    build:
-      context: ./product_service
-      dockerfile: Dockerfile
-    volumes:
-      - ./product_service:/code
-      - ./common:/code/common
-    depends_on:
-      - postgres
-    networks:
-      - app_network
-    ports:
-      - "8002:8000"
+    user_action_service:
+        build:
+            context: ./user_action_service
+            dockerfile: Dockerfile
+        volumes:
+            - ./user_action_service:/code
+        depends_on:
+            - postgres
+        networks:
+            - app_network
+        ports:
+            - "8001:8000"
 
-  # front_end:
-  #   build:
-  #     context: ./front-end
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - /app/node_modules
-  #     - ./front-end:/app
-  #   networks:
-  #     - app_network
-  #   ports:
-  #     - "5173:3000"
+    product_service:
+        build:
+            context: ./product_service
+            dockerfile: Dockerfile
+        volumes:
+            - ./product_service:/code
+            - ./common:/code/common
+        depends_on:
+            - postgres
+        networks:
+            - app_network
+        ports:
+            - "8002:8000"
+
+    # dashboard_service:
+    #     build:
+    #         context: ./dashboard_service
+    #         dockerfile: Dockerfile
+    #     volumes:
+    #         - ./dashboard_service:/app
+    #     networks:
+    #         - app_network
+    #     ports:
+    #         - "9999:8501"
+
+    # front_end:
+    #   build:
+    #     context: ./front-end
+    #     dockerfile: Dockerfile
+    #   volumes:
+    #     - /app/node_modules
+    #     - ./front-end:/app
+    #   networks:
+    #     - app_network
+    #   ports:
+    #     - "5173:3000"
 
 volumes:
-  postgres_data:
+    postgres_data:
 
 networks:
-  app_network:
-    driver: bridge
+    app_network:
+        driver: bridge
