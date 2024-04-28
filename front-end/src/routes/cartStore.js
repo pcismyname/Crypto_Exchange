@@ -37,7 +37,7 @@ function createCart() {
 
             return state;
         }),
-        clear: () => set(initialState),
+        clear: () => set({ items: [], total: 0 }),
     };
 }
 

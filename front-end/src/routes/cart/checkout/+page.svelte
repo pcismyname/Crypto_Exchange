@@ -1,18 +1,54 @@
 <script>
     import { cart } from "../../cartStore.js";
     import { goto } from "$app/navigation";
-
+    console.log($cart.items);
     let isModalOpen = false;
-
     async function pay() {
         isModalOpen = true;
     }
 
     async function confirm() {
         isModalOpen = false;
+        const baseUrl = "http://localhost:8002/api/v1/inventory";
+
+        // Ensure fetchPromises are correctly formed
+        const fetchPromises = $cart.items.map((item) => {
+            const url = `${baseUrl}/${item.id}/decrease?amount=${item.quantity}`;
+            return fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    // Include authorization or other necessary headers
+                },
+                body: JSON.stringify({
+                    crypto_id: item.id,
+                    amount: item.quantity,
+                }),
+            });
+        });
+
+        try {
+            const responses = await Promise.all(fetchPromises);
+            // Process responses
+            responses.forEach(async (response) => {
+                if (!response.ok) {
+                    console.error(
+                        `Failed to decrease inventory for item with response status: ${response.status}`
+                    );
+                } else {
+                    const data = await response.json();
+                    console.log("Decrease Inventory Response:", data);
+                    console.log("Cart store:", cart);
+                    console.log("Clear method:", cart.clear);
+                    cart.clear();
+                    goto(`/top-pick`)
+                }
+            });
+        } catch (error) {
+            console.error("Error in decreasing inventory:", error);
+        }
     }
-
-
 </script>
 
 <div class="container mx-auto max-w-4xl py-12 px-4 md:px-6">
@@ -34,7 +70,7 @@
                             Name
                         </label>
                         <input
-                            class=" flex h-10 w-full rounded-md border border-input bg-primary px-3 py-2 text-sm"
+                            class=" flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm"
                             id="name"
                             placeholder="John Doe"
                         />
@@ -184,9 +220,9 @@
                 <span class="font-extrabold text-lg">Total: $</span>
                 <span class="font-extrabold text-lg">{$cart.total}</span>
             </div>
-            <div class="card-actions justify-end"></div>
         </div>
     </div>
+
     <div class="mt-8 flex justify-end">
         <div class="card-actions justify-end">
             <button class="btn btn-primary" on:click={pay}>Pay Now</button>
@@ -196,13 +232,11 @@
 
 <div class="modal justify-center" class:modal-open={isModalOpen}>
     <div class="modal-box">
-            <h3 class="font-bold text-lg justify-center">scan QR code</h3>
-            <img src="https://promptpay.io/0650474865.png" alt="qr-code" />
-            <div class="modal-action">
-                <!-- 🔵 set false on click -->
-                <button class="btn" on:click={confirm}
-                    >Ok!</button
-                >
-            </div>
+        <h3 class="font-bold text-lg justify-center">scan PromptPay</h3>
+        <img src="https://promptpay.io/0650474865.png" alt="qr-code" />
+        <div class="modal-action">
+            <!-- 🔵 set false on click -->
+            <button class="btn" on:click={confirm}>Ok!</button>
+        </div>
     </div>
 </div>

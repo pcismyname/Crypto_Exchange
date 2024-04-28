@@ -2,9 +2,14 @@
     import Header from "./Header.svelte";
     import "./styles.css";
     import "../app.css";
+    import Transition from './Transition.svelte';
+
+    /** @type {import('./$types').PageData} */
+    export let data;
 </script>
 
 <div data-theme="mytheme">
+	<Transition key={data.url} duration={600}/>
     <Header />
 
     <main>
