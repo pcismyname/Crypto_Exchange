@@ -3,8 +3,8 @@
 
   export let image = "";
   export let name = "";
-  export let coinId = "";
-  export let cryptoId = ""
+  export const coinId = "";
+  export const cryptoId = ""
   async function navigate() {
     // console.log(name,coinId,cryptoId)
     goto(`/top-pick/${name.toLowerCase()}`); // Pass coin data as context
