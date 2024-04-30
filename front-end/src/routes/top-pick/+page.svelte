@@ -9,8 +9,7 @@
     /** @type {import('./$types').PageData} */
     export let data;
     let coins = data['props'];
-    // console.log('data from api')
-    // console.log(coins);
+
 
     const images = {
         btc: bitcoin_img,
